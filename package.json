@@ -1,0 +1,21 @@
+{
+  "name": "challenge",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.6.5",
+  "scripts": {
+    "test:core": "vitest run",
+    "check:core": "tsc -p packages/core --noEmit",
+    "check:contracts": "tsc -p packages/contracts --noEmit",
+    "demo": "node --experimental-strip-types demo/demo.ts",
+    "check:demo": "tsc -p demo --noEmit"
+  },
+  "devDependencies": {
+    "fast-check": "^4.10.2",
+    "typescript": "^5.7.3",
+    "vitest": "^5.0.5"
+  },
+  "engines": {
+    "node": ">=22.6"
+  }
+}

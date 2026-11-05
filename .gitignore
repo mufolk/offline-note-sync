@@ -1,0 +1,22 @@
+# Dependências
+node_modules/
+.pnpm-store/
+
+# Build
+dist/
+build/
+.next/
+*.tsbuildinfo
+
+# Testes
+coverage/
+
+# Ambiente — nunca comitar chave de API do LLM
+.env
+.env.*
+!.env.example
+
+# SO / editor
+.DS_Store
+.idea/
+*.log
