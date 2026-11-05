@@ -142,7 +142,7 @@ if note exists && base !== note.revision → receipt conflict (freeze today's se
 
 `process` and `query` are the two entry points. Both take the unit of work. The lock is a property of the unit of work, not of `process`.
 
-The statement does not name a lock, a transaction, or `async`. It names the facts this section has to keep true: one result per operation, in arrival order; a valid first arrival stores content and result, including `conflict`; a resend does not apply again; a separate query shows the note as it is now.
+The problem does not name a lock, a transaction, or `async`. It names the facts this section has to keep true: one result per operation, in arrival order; a valid first arrival stores content and result, including `conflict`; a resend does not apply again; a separate query shows the note as it is now.
 
 **Own choices**
 

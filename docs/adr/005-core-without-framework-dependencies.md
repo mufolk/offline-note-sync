@@ -4,7 +4,7 @@
 
 ## Context
 
-The statement does not ask for disk or HTTP. The vacancy does. `process` and `query` take a `UnitOfWork` they do not own. The in-memory adapter is the only implementation. `packages/core/package.json` depends on `contracts`, the types package in this repo, and on nothing else. No Nest, Postgres, Zod, or model client is imported.
+The problem does not ask for disk or HTTP. The vacancy does. `process` and `query` take a `UnitOfWork` they do not own. The in-memory adapter is the only implementation. `packages/core/package.json` depends on `contracts`, the types package in this repo, and on nothing else. No Nest, Postgres, Zod, or model client is imported.
 
 ADR-008 and ADR-009 are merged into this file, decided 2026-10-30. They are not filed, not proposed as intent, and not left as an open cut. There is no schema in the repo, so neither sentence is a decision about code that exists. A persisted constraint that can disagree with `check` is the review trigger below. The revision check leaving memory is wrong when two requests on the same note both pass the comparison and both write; the exit is one statement, `UPDATE … WHERE revision = $base`, in the same transaction as the receipt write. That statement is not in the tree. ASM-21, ASM-22, ASM-26 and ASM-28 point here.
 
@@ -20,9 +20,9 @@ The core may not know a framework, a database, a validator, or a model client, a
 
 ## Consequences
 
-Good. `pnpm test:core` is the whole statement: no Docker, no database, no API key. A later adapter implements the same four methods.
+Good. `pnpm test:core` is the whole problem: no Docker, no database, no API key. A later adapter implements the same four methods.
 
-Bad. "Zero runtime dependencies" survives opening the file. "Zero entries under `dependencies`" does not: `contracts` is one. There is no second copy of the types to drift, because there is no adapter. The in-memory lock is stronger than a Postgres read at READ COMMITTED would be (ASM-26), and the core suite cannot show that difference. Position in the batch is the only correlation key (ASM-45); that stops being true if results cross a boundary that does not preserve order.
+Bad. "No third-party dependencies" survives opening the file. "Zero runtime dependencies" does not, and neither does "zero entries under `dependencies`": `contracts` is one. There is no second copy of the types to drift, because there is no adapter. The in-memory lock is stronger than a Postgres read at READ COMMITTED would be (ASM-26), and the core suite cannot show that difference. Position in the batch is the only correlation key (ASM-45); that stops being true if results cross a boundary that does not preserve order.
 
 ## Review trigger
 

@@ -1,5 +1,5 @@
 {
-  "name": "challenge",
+  "name": "offline-note-sync",
   "private": true,
   "type": "module",
   "packageManager": "pnpm@10.6.5",

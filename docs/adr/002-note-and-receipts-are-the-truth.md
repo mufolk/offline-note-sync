@@ -6,7 +6,7 @@ The first draft of the plan (24 Oct) titled this ADR the other way: a ledger of 
 
 ## Context
 
-The statement requires storing the content and the result of every valid first arrival, including a conflict. It never asks for a note to be rebuilt from history. What the core stores is the current note, `{id, text, revision}`, and the receipt registry. There is no event log.
+The problem requires storing the content and the result of every valid first arrival, including a conflict. It never asks for a note to be rebuilt from history. What the core stores is the current note, `{id, text, revision}`, and the receipt registry. There is no event log.
 
 `query` loads the note and does not look at the registry. What you lose is replay as an operation. The bytes of past accepted states are still sitting on `accepted` receipts (`text` and `revision`), keyed by `op_id`, with no scan and no fold, and an `id_reused` attempt has no row at all. "Unrecoverable" means the server will not rebuild the note. It does not mean those accepted texts have been deleted.
 
@@ -18,7 +18,7 @@ The server answers `query` from the current note alone, `{id, text, revision}`, 
 
 **An operation ledger, with the note as a fold.** Buys replay, and an audit that can rebuild the note from scratch. Costs a log that only grows and a read that is a fold. This is what the first draft of the plan (24 Oct) chose on paper. Worth choosing the moment someone asks for revision 2 as it was, and the current text is not enough.
 
-**The note alone, with no stored receipts.** Buys the smallest store. Costs the resend rule: the statement requires the original result back, including when that result was a conflict. Worth choosing only for a protocol that is idempotent by content rather than by `op_id`.
+**The note alone, with no stored receipts.** Buys the smallest store. Costs the resend rule: the problem requires the original result back, including when that result was a conflict. Worth choosing only for a protocol that is idempotent by content rather than by `op_id`.
 
 ## Consequences
 

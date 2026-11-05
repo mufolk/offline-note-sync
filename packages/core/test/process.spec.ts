@@ -296,7 +296,7 @@ describe("process — the lock (RFC-001 §4.3)", () => {
   /**
    * ASM-25. Registry lookup, note write and receipt write are one locked
    * transaction. Without the lock both calls read revision 1 and one apply
-   * vanishes — the lost update the statement exists to prevent.
+   * vanishes — the lost update the problem exists to prevent.
    */
   it("ASM-25 — two overlapping ops on the same note give one accepted and one conflict", async () => {
     const uow = createInMemoryUnitOfWork();

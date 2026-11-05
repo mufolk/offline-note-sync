@@ -4,7 +4,7 @@
 
 ## Context
 
-A conflict leaves two texts, and the obvious help is to merge them. The statement forbids automatic merge. The room left for a model is narrow: it drafts a text, that draft becomes an ordinary operation with a new `op_id` and `base_revision` equal to the current revision, and the draft walks the same four steps as a human edit. If the note moved while the model was thinking, the proposal conflicts and is stored as a conflict. No package in this repo calls a model. README §8 records that absence.
+A conflict leaves two texts, and the obvious help is to merge them. The problem forbids automatic merge. The room left for a model is narrow: it drafts a text, that draft becomes an ordinary operation with a new `op_id` and `base_revision` equal to the current revision, and the draft walks the same four steps as a human edit. If the note moved while the model was thinking, the proposal conflicts and is stored as a conflict. No package in this repo calls a model. README §8 records that absence.
 
 `process` has no branch for a model. A fresh `op_id` on the live revision is accepted the way any other edit is.
 

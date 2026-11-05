@@ -4,7 +4,7 @@
 
 ## Context
 
-Disconnected clients edit the same note and submit later, duplicated and out of order. The statement forbids joining the texts and forbids using the device clock to pick a winner. The server still has to accept, reject, or flag a conflict, and it must not drop work without a trace.
+Disconnected clients edit the same note and submit later, duplicated and out of order. The problem forbids joining the texts and forbids using the device clock to pick a winner. The server still has to accept, reject, or flag a conflict, and it must not drop work without a trace.
 
 ## Decision
 
@@ -12,11 +12,11 @@ The server accepts an operation on an existing note only when its `base_revision
 
 ## Alternatives considered
 
-**Last-write-wins.** Buys the smallest server: keep the newest text and move on. Costs a silent loss, and the only definition of "newest" is a clock the statement forbids. Worth choosing for a single-user scratch pad where a lost edit is cheap and the protocol can be one field.
+**Last-write-wins.** Buys the smallest server: keep the newest text and move on. Costs a silent loss, and the only definition of "newest" is a clock the problem forbids. Worth choosing for a single-user scratch pad where a lost edit is cheap and the protocol can be one field.
 
-**CRDT.** Buys offline edits that merge with no round trip. Costs an automatic merge, which the statement forbids, and text nobody typed. Worth choosing if the product promise is "your edit always lands" rather than "your edit is never discarded without a receipt".
+**CRDT.** Buys offline edits that merge with no round trip. Costs an automatic merge, which the problem forbids, and text nobody typed. Worth choosing if the product promise is "your edit always lands" rather than "your edit is never discarded without a receipt".
 
-**Operational transformation.** Buys live co-editing with a defined transform. Costs the same automatic merge, plus a live channel the statement puts out of scope. Worth choosing for a document open on two screens at once.
+**Operational transformation.** Buys live co-editing with a defined transform. Costs the same automatic merge, plus a live channel the problem puts out of scope. Worth choosing for a document open on two screens at once.
 
 ## Consequences
 

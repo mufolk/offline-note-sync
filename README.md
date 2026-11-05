@@ -15,12 +15,12 @@ step) and pnpm.
 
 ```bash
 pnpm i
-pnpm test:core   # the whole challenge: 56 tests, 7 files
+pnpm test:core   # 56 tests, 7 files
 pnpm demo        # the reproducible demonstration, below
 ```
 
-Nothing else is needed — no Docker, no database, no API key. `packages/core` has zero
-runtime dependencies, which is why the suite runs in under a second. That boundary is a
+Nothing else is needed — no Docker, no database, no API key. `packages/core` has no
+third-party dependencies, which is why the suite runs in under a second. That boundary is a
 decision, not an accident; ADR-005 argues it.
 
 Typechecks: `pnpm check:contracts`, `pnpm check:core`, `pnpm check:demo`.
@@ -38,8 +38,8 @@ asking you to read twelve JSON blobs and take its word for it.
 The three steps worth watching:
 
 - **step 7** — the phone resends an operation that conflicted. The note has moved on to
-  revision 3 by then; the receipt still says revision 2. A stored receipt is never
-  refreshed.
+  revision 3 by then; `server_revision` on the receipt is still 2. `base_revision` on
+  that receipt is 1, the base the phone sent. A stored receipt is never refreshed.
 - **step 8** — a `query` at that same moment returns revision 3. The frozen receipt and
   the live read disagree, by design.
 - **steps 10 and 11** — a malformed payload under a fresh `op_id`, then the same `op_id`
@@ -109,7 +109,7 @@ Each of these catches a whole class of bug rather than one case.
 and `exemplo-do-statement.spec.ts` → *EX-06*.
 Catches the single most tempting bug: "helpfully" refreshing a stored receipt with the
 current server state. REQ-19 forbids it. A resend returns the original receipt, which
-may be stale. An implementation that refreshes passes every other test in the suite.
+may be stale. REQ-14 is the test that names that bug. EX-06 and ASM-34 catch it too.
 
 **2 — The same `op_id` with different text returns `id_reused`, and nothing else.**
 `process.spec.ts` → *ASM-40 — id_reused is exactly { type, op_id } and leaks no stored text*.
@@ -131,10 +131,10 @@ then the same key with a good one, and expects `accepted`.
 
 **A malformed payload is not a reuse of the id.** The red-team pass on RFC-001 pressed
 the other answer: an `op_id` the server has already stored, arriving again with a field
-missing, should come back `id_reused`. I wanted to check which sentence that obeys. The
-problem says to check the fields before processing, and that an invalid operation does
-not occupy `op_id`. A payload that fails the check has not arrived as an operation, so it
-cannot reuse an id and it cannot replay a receipt. I kept validate, then look up. The
+missing, should come back `id_reused`. I adopted that order, then reversed it the same
+night, because a payload that fails the check is not an operation, so it cannot reuse an
+id and it cannot replay a receipt. The problem says to check the fields before
+processing, and that an invalid operation does not occupy `op_id`. The
 test is `process.spec.ts` → *REQ-13 — an invalid payload does not occupy the op_id*: the
 bad payload, then the same `op_id` with the payload fixed, and the second result is
 `accepted`.

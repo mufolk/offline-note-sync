@@ -1,5 +1,5 @@
 /**
- * The reproducible demonstration (DEL-02). RFC-001 §2: "a script that runs a
+ * The reproducible demonstration. RFC-001 §2: "a script that runs a
  * sequence and prints receipts."
  *
  * The scenario is deliberately not the worked example — that one is in
@@ -79,7 +79,7 @@ console.log("Offline note sync. Two devices, one note: 'agenda'.");
 console.log("Nothing on the server to begin with.");
 
 // The phone was offline when someone mentioned the note. It edits a note that
-// was never created. This is the statement's second branch, not a conflict.
+// was never created. This is the problem's second branch, not a conflict.
 await op(
   "phone edits a note that does not exist yet",
   "note_not_found — not a conflict: there is no server text to show",
@@ -131,7 +131,7 @@ await op(
 // refreshed. A resend returns the original receipt, which may be stale (REQ-19).
 await op(
   "the phone resends p2 once more, now that the note is at revision 3",
-  "STILL the original conflict, frozen at revision 2 — a receipt is never refreshed",
+  "STILL the original conflict, server_revision 2 — base_revision 1 is the base the phone sent",
   edit("p2", 1, "1. budget\n2. roadmap"),
   (r) => r.type === "conflict" && r.server_revision === 2,
 );

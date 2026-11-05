@@ -1,6 +1,6 @@
 # How the AI was used, and how that was checked
 
-DEL-05. The plan asks for four to six entries, each in three lines: what was suggested, what was kept or changed, how it was checked. Six episodes are on record.
+Six episodes are on record. Each one says what was suggested, what was kept or changed, and how it was checked.
 
 ## 1. 2026-10-29, 01:32 — a base ahead of the server
 

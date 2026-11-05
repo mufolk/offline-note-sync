@@ -4,7 +4,7 @@
 
 ## Context
 
-The statement says the result of a resend may contain stale data, because it is the receipt of the original operation, and that a separate query must show the note as it is now. The demo's steps 7 and 8 are that pair on purpose: the resent conflict still says revision 2, and `query` at that moment returns 3.
+The problem says the result of a resend may contain stale data, because it is the receipt of the original operation, and that a separate query must show the note as it is now. The demo's steps 7 and 8 are that pair on purpose: the resent conflict's `server_revision` is still 2, and `query` at that moment returns 3.
 
 ## Decision
 
@@ -18,7 +18,7 @@ On a resend the server returns the stored receipt unchanged and refuses to refre
 
 ## Consequences
 
-Good. A given `op_id` is written once. `query` can move on without rewriting history. The statement's own example needs no special case.
+Good. A given `op_id` is written once. `query` can move on without rewriting history. The worked example needs no special case.
 
 Bad. A client that renders the receipt and never calls `query` shows stale text and looks fine. The next `base_revision` may be taken from that client's own `accepted` receipt (ASM-37), and that is safe only until another writer lands. A revision on a `conflict` receipt is never a safe base. Using it after the note has moved is another conflict, which is this decision holding, not a bug.
 

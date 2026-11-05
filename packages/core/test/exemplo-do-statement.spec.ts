@@ -7,7 +7,7 @@ import {
 } from "../src/index.ts";
 
 /**
- * The statement's own example ("Um exemplo"), step by step, in order.
+ * The worked example, step by step, in order.
  * Each case is named after the line of the table it reproduces (EX-01..EX-08
  * in docs/reqs.md). One note N, two devices, one shared unit of work.
  */
@@ -17,7 +17,7 @@ const O2 = { op_id: "O2", note_id: "N", base_revision: 1, text: "edição A" };
 const O3 = { op_id: "O3", note_id: "N", base_revision: 1, text: "edição B" };
 const O4 = { op_id: "O4", note_id: "N", base_revision: 2, text: "A + B" };
 
-describe("the statement's example, step by step", () => {
+describe("the worked example, step by step", () => {
   let uow: UnitOfWork;
 
   beforeEach(() => {

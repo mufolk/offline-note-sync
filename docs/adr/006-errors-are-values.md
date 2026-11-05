@@ -4,7 +4,7 @@
 
 ## Context
 
-The statement wants one result per operation, in the order received, and an error or a conflict must not stop the rest of the queue. `process` returns a `ProcessResult`. `processAll` folds the queue and returns an array of the same length. A conflict takes the normal path. The empty `catch` on the in-memory lock covers a throw; after the predicates, that throw is a bug in `process`, not an outcome the statement names (ASM-29). There is no HTTP adapter here to turn values back into status codes, so the Decision — the core never throws a domain outcome — does not speak for one.
+The problem wants one result per operation, in the order received, and an error or a conflict must not stop the rest of the queue. `process` returns a `ProcessResult`. `processAll` folds the queue and returns an array of the same length. A conflict takes the normal path. The empty `catch` on the in-memory lock covers a throw; after the predicates, that throw is a bug in `process`, not an outcome the problem names (ASM-29). There is no HTTP adapter here to turn values back into status codes, so the Decision — the core never throws a domain outcome — does not speak for one.
 
 ## Decision
 

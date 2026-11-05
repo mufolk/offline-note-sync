@@ -16,7 +16,7 @@ The fingerprint is `note_id`, `base_revision`, and `text`, compared with `===` o
 
 **The key alone, no fingerprint.** Buys a smaller row, and a resend path that always returns the stored receipt. Costs the inability to tell a retry from a reused key, so the reused-id error cannot be produced. Worth choosing if the client is trusted never to reuse an id with a new payload.
 
-**Return the stored receipt on collision.** Buys a useful error for the client that reused its own id and wants to see which field diverged. Costs a leak: anyone who can guess an `op_id` reads another client's text. The statement does not specify the payload of this error. Worth choosing in a single-tenant tool where that guess is not a threat.
+**Return the stored receipt on collision.** Buys a useful error for the client that reused its own id and wants to see which field diverged. Costs a leak: anyone who can guess an `op_id` reads another client's text. The problem does not specify the payload of this error. Worth choosing in a single-tenant tool where that guess is not a threat.
 
 ## Consequences
 
